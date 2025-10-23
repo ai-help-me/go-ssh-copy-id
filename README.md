@@ -3,7 +3,7 @@
 A lightweight Golang tool for distributing SSH public keys to remote hosts.  
 It supports **multi-host concurrency**, **non-interactive password authentication**, and securely appends your public key to the remote `~/.ssh/authorized_keys` file.
 
-Unlike the original ssh-copy-id, this tool does not require a local SSH client and does not rely on remote shell commands like cat, echo, or mkdir. The most important thing is the reason for the existence of this software: it does not need to read the password from the terminal. This is a non-interactive tool.
+Unlike the original ssh-copy-id, this tool does not require a local SSH client and does not rely on remote shell commands like cat, echo, or mkdir. The most important thing is the reason for the existence of this software: it does **not need to read the password from the terminal**. This is a non-interactive tool.
 
 ---
 
