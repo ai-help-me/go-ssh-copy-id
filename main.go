@@ -102,22 +102,17 @@ func main() {
 	wg.Wait()
 }
 
-// readPublicKey reads the public key from file or stdin
+// readPublicKey reads the public key from file
 func readPublicKey(path string) (string, error) {
-	stat, _ := os.Stdin.Stat()
-	if (stat.Mode() & os.ModeCharDevice) == 0 {
-		data, err := io.ReadAll(os.Stdin)
-		if err != nil {
-			return "", err
-		}
-		return strings.TrimSpace(string(data)), nil
-	}
-
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return "", err
 	}
-	return strings.TrimSpace(string(data)), nil
+	content := strings.TrimSpace(string(data))
+	if content == "" {
+		return "", fmt.Errorf("empty public key")
+	}
+	return content, nil
 }
 
 // readPassword reads the password from command line, file, or interactively
@@ -170,7 +165,7 @@ func copyKeyToHost(task *HostTask) error {
 	sftpClient.Chmod(sshDir, 0700)
 
 	// Open or create authorized_keys file
-	f, err := sftpClient.OpenFile(authFile, os.O_RDWR|os.O_CREATE)
+	f, err := sftpClient.OpenFile(authFile, os.O_RDWR|os.O_CREATE|os.O_APPEND)
 	if err != nil {
 		return fmt.Errorf("failed to open %s: %v", authFile, err)
 	}
