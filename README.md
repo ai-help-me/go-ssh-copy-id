@@ -26,7 +26,7 @@ Unlike the original ssh-copy-id, this tool does not require a local SSH client a
 ## Install
  
 ```
-go github.com/ai-help-me/go-ssh-copy-id@latest
+go install github.com/ai-help-me/go-ssh-copy-id@latest
 ```
 
 Use it with ansible
