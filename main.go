@@ -190,7 +190,9 @@ func copyKeyToHost(task *HostTask) error {
 	if _, err := f.Write([]byte(task.PubKey + "\n")); err != nil {
 		return fmt.Errorf("failed to append public key: %v", err)
 	}
-
+	if err := f.Sync(); err != nil {
+		return fmt.Errorf("failed to write public key to remote disk: %v", err)
+	}
 	// Set file permission
 	if err := sftpClient.Chmod(authFile, 0600); err != nil {
 		return fmt.Errorf("failed to set file permission: %v", err)
