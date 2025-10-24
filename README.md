@@ -16,7 +16,6 @@ Unlike the original ssh-copy-id, this tool does not require a local SSH client a
   - Interactive prompt if neither is provided  
 - Supports reading public key from:
   - File (`-i` option, default `~/.ssh/id_rsa.pub`)
-  - Standard input (`stdin`)  
 - Automatically creates remote `~/.ssh` directory with `0700` permissions  
 - Checks for existing keys to avoid duplicates  
 - **Zero remote command dependency**: works even on minimal containers or embedded systems  
