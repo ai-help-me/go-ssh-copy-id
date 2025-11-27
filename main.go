@@ -104,6 +104,13 @@ func main() {
 
 // readPublicKey reads the public key from file
 func readPublicKey(path string) (string, error) {
+	if strings.HasPrefix(path, "~") {
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			return "", err
+		}
+		path = filepath.Join(homeDir, path[1:])
+	}
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return "", err
