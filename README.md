@@ -28,23 +28,11 @@ Unlike the original ssh-copy-id, this tool does not require a local SSH client a
 go install github.com/ai-help-me/go-ssh-copy-id@latest
 ```
 
-Use it with ansible
+How to use
 ```
-- name: test
-  hosts: all
-  tasks:
-   - name: ssh-copy-id
-     command: /usr/local/bin/go-ssh-copy-id  -i ~/.ssh/id_rsa.pub --user root --hosts {{ item }} --password {{ ansible_password }}
-     with_items:
-      - 172.28.25.10
-      - 172.28.25.11
-      - 172.28.25.12
-      - 172.28.25.13
-   - name: ssh connect check
-     shell: ssh -o ConnectTimeout=10 -o BatchMode=yes -o StrictHostKeyChecking=no root@{{ item }} "echo 'SSH connection successful to {{ item }}'"
-     with_items:
-      - 172.28.25.10
-      - 172.28.25.11
-      - 172.28.25.12
-      - 172.28.25.13
+# copy public key to remote host
+/usr/local/bin/go-ssh-copy-id  -i ~/.ssh/id_rsa.pub --user root --hosts {{ item }} --password {{ ansible_password }}
+
+# Check ssh connection
+ssh -o ConnectTimeout=10 -o BatchMode=yes -o StrictHostKeyChecking=no root@{{ item }} "echo 'SSH connection successful to {{ item }}'"
 ```
